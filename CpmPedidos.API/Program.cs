@@ -1,21 +1,17 @@
 using CpmPedidos.API;
 
-var builder = WebApplication.CreateBuilder(args);
+internal class Program
+{
+    private static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
 
-// Add services to the container.
+    public static HostBuilder CreateHostBuilder(string[] args) =>
+        (HostBuilder)Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
 
-builder.Services.AddControllers();
-
-DependencyInjection.Register(builder.Services);
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+}
