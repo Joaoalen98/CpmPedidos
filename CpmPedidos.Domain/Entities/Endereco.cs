@@ -12,5 +12,7 @@
 
         public int IdCidade { get; set; }
         public virtual Cidade Cidade { get; set; }
+
+        public Cliente Cliente { get; set; }
     }
 }
