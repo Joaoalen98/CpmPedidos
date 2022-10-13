@@ -23,6 +23,9 @@ namespace CpmPedidos.Repository
 
             builder.Property(x => x.IdCidade).HasColumnName("id_cidade").IsRequired();
             builder.HasOne(x => x.Cidade).WithMany().HasForeignKey(x => x.IdCidade);
+
+            builder.Property(x => x.IdCidade).HasColumnName("id_cidade").HasMaxLength(90).IsRequired();
+            builder.HasOne(x => x.Cidade).WithMany().HasForeignKey(x => x.IdCidade);
         }
     }
 }

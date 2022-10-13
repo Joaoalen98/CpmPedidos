@@ -18,6 +18,9 @@ namespace CpmPedidos.Repository
 
             builder.Property(x => x.IdImagem).HasColumnName("id_imagem").IsRequired();
             builder.HasOne(x => x.Imagem).WithMany().HasForeignKey(x => x.Imagem);
+
+            builder.Property(x => x.IdImagem).HasColumnName("id_imagem").HasMaxLength(90).IsRequired();
+            builder.HasOne(x => x.Imagem).WithMany().HasForeignKey(x => x.IdImagem);
         }
     }
 }

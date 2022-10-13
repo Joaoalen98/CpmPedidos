@@ -20,6 +20,9 @@ namespace CpmPedidos.Repository
 
             builder.Property(x => x.IdCategoria).HasColumnName("id_categoria").IsRequired();
             builder.HasOne(x => x.Categoria).WithMany(x => x.Produtos).HasForeignKey(x => x.IdCategoria);
+
+            builder.Property(x => x.IdCategoria).HasColumnName("id_categoria").IsRequired();
+            builder.HasOne(x => x.Categoria).WithMany(x => x.Produtos).HasForeignKey(x => x.IdCategoria);
         }
     }
 }
