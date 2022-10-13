@@ -9,6 +9,6 @@ namespace CpmPedidos.Domain
         public TimeSpan Entrega { get; set; }
         public int IdCliente { get; set; }
         public virtual Cliente Cliente { get; set; }
-        public virtual List<Produto> Produtos { get; set; }
+        public virtual List<ProdutoPedido> Produtos { get; set; }
     }
 }
