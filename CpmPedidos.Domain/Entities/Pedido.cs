@@ -2,7 +2,7 @@
 
 namespace CpmPedidos.Domain
 {
-    public abstract class Pedido : BaseDomain
+    public class Pedido : BaseDomain
     {
         public string Numero { get; set; }
         public decimal ValorTotal { get; set; }

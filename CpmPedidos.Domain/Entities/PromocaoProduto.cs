@@ -2,7 +2,7 @@
 
 namespace CpmPedidos.Domain
 {
-    public abstract class PromocaoProduto : BaseDomain, IExibivel
+    public class PromocaoProduto : BaseDomain, IExibivel
     {
         public string Nome { get; set; }
         public decimal Preco { get; set; }

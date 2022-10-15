@@ -1,6 +1,6 @@
 ﻿namespace CpmPedidos.Domain
 {
-    public abstract class ProdutoPedido : BaseDomain
+    public class ProdutoPedido : BaseDomain
     {
         public int Quantidade { get; set; }
         public decimal Preco { get; set; }

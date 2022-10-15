@@ -2,7 +2,7 @@
 
 namespace CpmPedidos.Domain
 {
-    public abstract class Produto : BaseDomain, IExibivel
+    public class Produto : BaseDomain, IExibivel
     {
         public string Nome { get; set; }
 

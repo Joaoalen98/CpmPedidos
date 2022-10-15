@@ -2,7 +2,7 @@
 
 namespace CpmPedidos.Domain
 {
-    public abstract class Imagem : BaseDomain
+    public class Imagem : BaseDomain
     {
         public string Nome { get; set; }
         public string NomeArquivo { get; set; }

@@ -2,7 +2,7 @@
 
 namespace CpmPedidos.Domain
 {
-    public abstract class Combo : BaseDomain, IExibivel
+    public class Combo : BaseDomain, IExibivel
     {
         public string Nome { get; set; }
         public decimal Preco { get; set; }

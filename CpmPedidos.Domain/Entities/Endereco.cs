@@ -1,8 +1,8 @@
 ﻿namespace CpmPedidos.Domain
 {
-    public abstract class Endereco : BaseDomain
+    public class Endereco : BaseDomain
     {
-        
+
         public TipoEnderecoEnum Tipo { get; set; }
         public string Logradouro { get; set; }
         public string Bairro { get; set; }

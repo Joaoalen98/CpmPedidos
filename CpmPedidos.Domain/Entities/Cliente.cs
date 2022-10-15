@@ -1,6 +1,6 @@
 ﻿namespace CpmPedidos.Domain
 {
-    public abstract class Cliente : BaseDomain, IExibivel
+    public class Cliente : BaseDomain, IExibivel
     {
         public string Nome { get; set; }
         public string Cpf { get; set; }
