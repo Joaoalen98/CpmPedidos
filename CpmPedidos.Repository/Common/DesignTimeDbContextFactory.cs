@@ -8,8 +8,8 @@ namespace CpmPedidos.Repository
     {
         public ApplicationDbContext CreateDbContext(string[] args)
         {
-            var enviromentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIROMENT");
-            var fileName = Directory.GetCurrentDirectory() + $"/../CpmPedidos.API/appsettings.{enviromentName}.json";
+            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var fileName = Directory.GetCurrentDirectory() + $"/../CpmPedidos.API/appsettings.{environmentName}.json";
 
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(fileName)
