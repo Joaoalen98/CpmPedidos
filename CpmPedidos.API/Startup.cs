@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 using CpmPedidos.Repository;
-using Microsoft.Data.Sqlite;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace CpmPedidos.API
@@ -8,7 +8,7 @@ namespace CpmPedidos.API
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public DbConnection DbConnection => new SqliteConnection(Configuration.GetConnectionString("App"));
+        public DbConnection DbConnection => new SqlConnection(Configuration.GetConnectionString("App"));
 
         public Startup(IConfiguration configuration)
         {
