@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CpmPedidos.Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221015043503_Init")]
+    [Migration("20221015045414_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -256,14 +256,26 @@ namespace CpmPedidos.Repository.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("principal");
 
-                    b.Property<int?>("ProdutoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ProdutoId");
-
                     b.ToTable("tb_imagem", (string)null);
+                });
+
+            modelBuilder.Entity("CpmPedidos.Domain.ImagemProduto", b =>
+                {
+                    b.Property<int>("IdProduto")
+                        .HasColumnType("int")
+                        .HasColumnName("id_produto");
+
+                    b.Property<int>("IdImagem")
+                        .HasColumnType("int")
+                        .HasColumnName("id_imagem");
+
+                    b.HasKey("IdProduto", "IdImagem");
+
+                    b.HasIndex("IdImagem");
+
+                    b.ToTable("tb_imagem_produto", (string)null);
                 });
 
             modelBuilder.Entity("CpmPedidos.Domain.Pedido", b =>
@@ -491,11 +503,23 @@ namespace CpmPedidos.Repository.Migrations
                     b.Navigation("Cidade");
                 });
 
-            modelBuilder.Entity("CpmPedidos.Domain.Imagem", b =>
+            modelBuilder.Entity("CpmPedidos.Domain.ImagemProduto", b =>
                 {
-                    b.HasOne("CpmPedidos.Domain.Produto", null)
-                        .WithMany("Imagens")
-                        .HasForeignKey("ProdutoId");
+                    b.HasOne("CpmPedidos.Domain.Imagem", "Imagem")
+                        .WithMany()
+                        .HasForeignKey("IdImagem")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CpmPedidos.Domain.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Imagem");
+
+                    b.Navigation("Produto");
                 });
 
             modelBuilder.Entity("CpmPedidos.Domain.Pedido", b =>
@@ -600,8 +624,6 @@ namespace CpmPedidos.Repository.Migrations
 
             modelBuilder.Entity("CpmPedidos.Domain.Produto", b =>
                 {
-                    b.Navigation("Imagens");
-
                     b.Navigation("Promocoes");
                 });
 #pragma warning restore 612, 618

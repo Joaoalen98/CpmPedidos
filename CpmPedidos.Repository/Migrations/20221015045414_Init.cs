@@ -41,6 +41,22 @@ namespace CpmPedidos.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "tb_imagem",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    nome = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    nome_arquivo = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    principal = table.Column<bool>(type: "bit", nullable: false),
+                    criado_em = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_imagem", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tb_produto",
                 columns: table => new
                 {
@@ -92,51 +108,6 @@ namespace CpmPedidos.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tb_imagem",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    nome = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    nome_arquivo = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    principal = table.Column<bool>(type: "bit", nullable: false),
-                    ProdutoId = table.Column<int>(type: "int", nullable: true),
-                    criado_em = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tb_imagem", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_tb_imagem_tb_produto_ProdutoId",
-                        column: x => x.ProdutoId,
-                        principalTable: "tb_produto",
-                        principalColumn: "id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tb_cliente",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    nome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    cpf = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
-                    id_endereco = table.Column<int>(type: "int", nullable: false),
-                    ativo = table.Column<bool>(type: "bit", nullable: false),
-                    criado_em = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tb_cliente", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_tb_cliente_tb_endereco_id_endereco",
-                        column: x => x.id_endereco,
-                        principalTable: "tb_endereco",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "tb_combo",
                 columns: table => new
                 {
@@ -155,6 +126,30 @@ namespace CpmPedidos.Repository.Migrations
                         name: "FK_tb_combo_tb_imagem_id_imagem",
                         column: x => x.id_imagem,
                         principalTable: "tb_imagem",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tb_imagem_produto",
+                columns: table => new
+                {
+                    id_imagem = table.Column<int>(type: "int", nullable: false),
+                    id_produto = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_imagem_produto", x => new { x.id_produto, x.id_imagem });
+                    table.ForeignKey(
+                        name: "FK_tb_imagem_produto_tb_imagem_id_imagem",
+                        column: x => x.id_imagem,
+                        principalTable: "tb_imagem",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tb_imagem_produto_tb_produto_id_produto",
+                        column: x => x.id_produto,
+                        principalTable: "tb_produto",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -190,24 +185,24 @@ namespace CpmPedidos.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tb_pedido",
+                name: "tb_cliente",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    numero = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    valor_total = table.Column<decimal>(type: "decimal(17,2)", precision: 17, scale: 2, nullable: false),
-                    entrega = table.Column<TimeSpan>(type: "time", nullable: false),
-                    id_cliente = table.Column<int>(type: "int", nullable: false),
+                    nome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    cpf = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    id_endereco = table.Column<int>(type: "int", nullable: false),
+                    ativo = table.Column<bool>(type: "bit", nullable: false),
                     criado_em = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tb_pedido", x => x.id);
+                    table.PrimaryKey("PK_tb_cliente", x => x.id);
                     table.ForeignKey(
-                        name: "FK_tb_pedido_tb_cliente_id_cliente",
-                        column: x => x.id_cliente,
-                        principalTable: "tb_cliente",
+                        name: "FK_tb_cliente_tb_endereco_id_endereco",
+                        column: x => x.id_endereco,
+                        principalTable: "tb_endereco",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -232,6 +227,29 @@ namespace CpmPedidos.Repository.Migrations
                         name: "FK_tb_produto_combo_tb_produto_id_produto",
                         column: x => x.id_produto,
                         principalTable: "tb_produto",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tb_pedido",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    numero = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    valor_total = table.Column<decimal>(type: "decimal(17,2)", precision: 17, scale: 2, nullable: false),
+                    entrega = table.Column<TimeSpan>(type: "time", nullable: false),
+                    id_cliente = table.Column<int>(type: "int", nullable: false),
+                    criado_em = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_pedido", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_tb_pedido_tb_cliente_id_cliente",
+                        column: x => x.id_cliente,
+                        principalTable: "tb_cliente",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -282,9 +300,9 @@ namespace CpmPedidos.Repository.Migrations
                 column: "id_cidade");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_imagem_ProdutoId",
-                table: "tb_imagem",
-                column: "ProdutoId");
+                name: "IX_tb_imagem_produto_id_imagem",
+                table: "tb_imagem_produto",
+                column: "id_imagem");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_pedido_id_cliente",
@@ -325,6 +343,9 @@ namespace CpmPedidos.Repository.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "tb_imagem_produto");
+
+            migrationBuilder.DropTable(
                 name: "tb_produto_combo");
 
             migrationBuilder.DropTable(
@@ -340,19 +361,19 @@ namespace CpmPedidos.Repository.Migrations
                 name: "tb_pedido");
 
             migrationBuilder.DropTable(
+                name: "tb_produto");
+
+            migrationBuilder.DropTable(
                 name: "tb_imagem");
 
             migrationBuilder.DropTable(
                 name: "tb_cliente");
 
             migrationBuilder.DropTable(
-                name: "tb_produto");
+                name: "tb_categoria_produto");
 
             migrationBuilder.DropTable(
                 name: "tb_endereco");
-
-            migrationBuilder.DropTable(
-                name: "tb_categoria_produto");
 
             migrationBuilder.DropTable(
                 name: "tb_cidade");
