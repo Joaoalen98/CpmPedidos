@@ -18,6 +18,9 @@ namespace CpmPedidos.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            DependencyInjection.Register(services);
+
+            services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(
@@ -25,13 +28,17 @@ namespace CpmPedidos.API
                     assembly => assembly.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
                 );
             });
-            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHttpsRedirection();
+            app.UseRouting();
             app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }
