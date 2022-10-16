@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CpmPedidos.Interface", "Cpm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CpmPedidos.Repository", "CpmPedidos.Repository\CpmPedidos.Repository.csproj", "{26BFAD30-566F-4BCC-A20D-4518C0DDE34C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CpmPedidos.API", "CpmPedidos.API\CpmPedidos.API.csproj", "{2B1756AD-5701-44F9-9E9B-4A1D7F1CDA81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CpmPedidos.API", "CpmPedidos.API\CpmPedidos.API.csproj", "{2B1756AD-5701-44F9-9E9B-4A1D7F1CDA81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
