@@ -8,7 +8,9 @@ namespace CpmPedidos.Repository.Repositories
         private readonly ApplicationDbContext _dbContext;
 
         public ProdutoRepository(ApplicationDbContext dbContext) : base(dbContext)
-        { }
+        {
+            _dbContext = dbContext;
+        }
 
         public List<Produto> Get()
         {
