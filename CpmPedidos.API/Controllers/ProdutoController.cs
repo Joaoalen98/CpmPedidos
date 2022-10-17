@@ -15,7 +15,7 @@ namespace CpmPedidos.API.Controllers
         [HttpGet]
         public List<Produto> Get()
         {
-            var rep = (IProdutoRepository)_serviceProvider.GetService(typeof(IProdutoRepository));
+            var rep = _serviceProvider.GetService<IProdutoRepository>();
             return rep.Get();
         }
     }
