@@ -1,5 +1,6 @@
 using CpmPedidos.Domain;
 using CpmPedidos.Interface.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CpmPedidos.Repository.Repositories
 {
@@ -11,6 +12,7 @@ namespace CpmPedidos.Repository.Repositories
         public List<Produto> Get()
         {
             return _dbContext.Produtos
+                .Include(x => x.Categoria)
                 .Where(x => x.Ativo)
                 .OrderBy(x => x.Nome)
                 .ToList();
@@ -19,8 +21,18 @@ namespace CpmPedidos.Repository.Repositories
         public List<Produto> GetSearch(string text)
         {
             return _dbContext.Produtos
+                .Include(x => x.Categoria)
                 .Where(x => x.Ativo && x.Nome.ToUpper().Contains(text.ToUpper())
                 || x.Descricao.ToUpper().Contains(text.ToUpper())).ToList();
+        }
+
+        public Produto Detail(int id)
+        {
+            return _dbContext.Produtos
+                .Include(x => x.Imagens)
+                .Include(x => x.Categoria)
+                .Where(x => x.Ativo && x.Id == id)
+                .FirstOrDefault();
         }
     }
 }

@@ -6,5 +6,6 @@ namespace CpmPedidos.Interface.Repositories
     {
         List<Produto> Get();
         List<Produto> GetSearch(string text);
+        Produto Detail(int id);
     }
 }

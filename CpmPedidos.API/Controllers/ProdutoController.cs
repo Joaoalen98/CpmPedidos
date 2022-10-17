@@ -25,5 +25,19 @@ namespace CpmPedidos.API.Controllers
             var rep = _serviceProvider.GetService<IProdutoRepository>();
             return rep.GetSearch(text);
         }
+
+        [HttpGet("{id}")]
+        public Produto Detail(int? id)
+        {
+            if ((id ?? 0) > 0)
+            {
+                var rep = _serviceProvider.GetService<IProdutoRepository>();
+                return rep.Detail(id.Value);
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
