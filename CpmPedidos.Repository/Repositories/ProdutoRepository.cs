@@ -18,15 +18,28 @@ namespace CpmPedidos.Repository.Repositories
                 .ToList();
         }
 
-        public List<Produto> GetSearch(string text, int pagina)
+        public dynamic GetSearch(string text, int pagina)
         {
-            return _dbContext.Produtos
+            var produtos =  _dbContext.Produtos
                 .Include(x => x.Categoria)
                 .Where(x => x.Ativo && x.Nome.ToUpper().Contains(text.ToUpper())
                 || x.Descricao.ToUpper().Contains(text.ToUpper()))
                 .Skip(TamanhoPagina * (pagina - 1))
                 .Take(TamanhoPagina)
                 .ToList();
+
+            var quantidadeProdutos = _dbContext.Produtos.Where(x => x.Ativo && x.Nome.ToUpper().Contains(text.ToUpper())
+                || x.Descricao.ToUpper().Contains(text.ToUpper()))
+                .Count();
+
+            var quantidadePaginas = quantidadeProdutos / TamanhoPagina;
+
+            if (quantidadePaginas < 1)
+            {
+                quantidadePaginas = 1;
+            }
+
+            return new { produtos, quantidadePaginas };
         }
 
         public Produto Detail(int id)

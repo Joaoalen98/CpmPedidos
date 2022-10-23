@@ -20,7 +20,7 @@ namespace CpmPedidos.API.Controllers
         }
 
         [HttpGet("search/{text}/{pagina}")]
-        public IEnumerable<Produto> GetSearch(string text, int pagina = 1)
+        public dynamic GetSearch(string text, int pagina = 1)
         {
             var rep = _serviceProvider.GetService<IProdutoRepository>();
             return rep.GetSearch(text, pagina);
