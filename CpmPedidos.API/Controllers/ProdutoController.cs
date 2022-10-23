@@ -19,11 +19,11 @@ namespace CpmPedidos.API.Controllers
             return rep.Get();
         }
 
-        [HttpGet("search/{text}")]
-        public IEnumerable<Produto> GetSearch(string text)
+        [HttpGet("search/{text}/{pagina}")]
+        public IEnumerable<Produto> GetSearch(string text, int pagina = 1)
         {
             var rep = _serviceProvider.GetService<IProdutoRepository>();
-            return rep.GetSearch(text);
+            return rep.GetSearch(text, pagina);
         }
 
         [HttpGet("{id}")]

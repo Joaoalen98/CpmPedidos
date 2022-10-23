@@ -18,12 +18,15 @@ namespace CpmPedidos.Repository.Repositories
                 .ToList();
         }
 
-        public List<Produto> GetSearch(string text)
+        public List<Produto> GetSearch(string text, int pagina)
         {
             return _dbContext.Produtos
                 .Include(x => x.Categoria)
                 .Where(x => x.Ativo && x.Nome.ToUpper().Contains(text.ToUpper())
-                || x.Descricao.ToUpper().Contains(text.ToUpper())).ToList();
+                || x.Descricao.ToUpper().Contains(text.ToUpper()))
+                .Skip(TamanhoPagina * (pagina - 1))
+                .Take(TamanhoPagina)
+                .ToList();
         }
 
         public Produto Detail(int id)
