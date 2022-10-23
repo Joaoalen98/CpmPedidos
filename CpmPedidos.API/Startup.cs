@@ -2,13 +2,14 @@
 using CpmPedidos.Repository;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace CpmPedidos.API
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public DbConnection DbConnection => new SqlConnection(Configuration.GetConnectionString("App"));
+        public DbConnection DbConnection => new NpgsqlConnection(Configuration.GetConnectionString("App"));
 
         public Startup(IConfiguration configuration)
         {
@@ -26,7 +27,7 @@ namespace CpmPedidos.API
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(
+                options.UseNpgsql(
                     DbConnection,
                     assembly => assembly.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
                 );
