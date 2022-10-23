@@ -1,4 +1,4 @@
-﻿using CpmPedidos.Interface.Repositories;
+﻿using CpmPedidos.Interface;
 using CpmPedidos.Repository.Repositories;
 
 namespace CpmPedidos.API
@@ -13,6 +13,7 @@ namespace CpmPedidos.API
         public static void RepositoryDependecies(IServiceCollection services)
         {
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IPedidoRepository, PedidoReposiroty>();
         }
     }
 }

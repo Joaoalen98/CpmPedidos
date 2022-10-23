@@ -1,3 +1,4 @@
+using CpmPedidos.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CpmPedidos.API.Controllers
@@ -6,12 +7,16 @@ namespace CpmPedidos.API.Controllers
     [Route("[controller]")]
     public class PedidoController : AppBaseController
     {
-        private readonly IServiceProvider _serviceProvider;
 
         public PedidoController(IServiceProvider serviceProvider)
-            :base(serviceProvider)
+            : base(serviceProvider)
+        { }
+
+        [HttpGet("ticket-maximo")]
+        public decimal TickerMaximo()
         {
-            _serviceProvider = serviceProvider;
+            var rep = _serviceProvider.GetService<IPedidoRepository>();
+            return rep.TicketMaximo();
         }
     }
 }

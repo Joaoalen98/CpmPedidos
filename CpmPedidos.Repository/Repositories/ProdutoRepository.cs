@@ -1,5 +1,5 @@
 using CpmPedidos.Domain;
-using CpmPedidos.Interface.Repositories;
+using CpmPedidos.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace CpmPedidos.Repository.Repositories

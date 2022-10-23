@@ -1,6 +1,6 @@
 using CpmPedidos.Domain;
 
-namespace CpmPedidos.Interface.Repositories
+namespace CpmPedidos.Interface
 {
     public interface IProdutoRepository
     {
