@@ -13,7 +13,7 @@ namespace CpmPedidos.API.Controllers
 
 
         [HttpGet]
-        public List<Produto> Get()
+        public dynamic Get()
         {
             var rep = _serviceProvider.GetService<IProdutoRepository>();
             return rep.Get();
@@ -27,12 +27,27 @@ namespace CpmPedidos.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public Produto Detail(int? id)
+        public dynamic Detail(int? id)
         {
             if ((id ?? 0) > 0)
             {
                 var rep = _serviceProvider.GetService<IProdutoRepository>();
                 return rep.Detail(id.Value);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+        [HttpGet("{id}/imagens")]
+        public dynamic Imagens(int? id)
+        {
+            if ((id ?? 0) > 0)
+            {
+                var rep = _serviceProvider.GetService<IProdutoRepository>();
+                return rep.Imagens(id.Value);
             }
             else
             {

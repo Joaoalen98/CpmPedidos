@@ -4,8 +4,9 @@ namespace CpmPedidos.Interface
 {
     public interface IProdutoRepository
     {
-        List<Produto> Get();
+        dynamic Get();
         dynamic GetSearch(string text, int pagina);
-        Produto Detail(int id);
+        dynamic Detail(int id);
+        dynamic Imagens(int id);
     }
 }
