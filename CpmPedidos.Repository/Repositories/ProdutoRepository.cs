@@ -32,7 +32,7 @@ namespace CpmPedidos.Repository.Repositories
 
         public dynamic GetSearch(string text, int pagina)
         {
-            var produtos =  _dbContext.Produtos
+            var produtos = _dbContext.Produtos
                 .Include(x => x.Categoria)
                 .Where(x => x.Ativo && x.Nome.ToUpper().Contains(text.ToUpper())
                 || x.Descricao.ToUpper().Contains(text.ToUpper()))

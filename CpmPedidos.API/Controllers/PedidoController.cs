@@ -12,11 +12,20 @@ namespace CpmPedidos.API.Controllers
             : base(serviceProvider)
         { }
 
+
         [HttpGet("ticket-maximo")]
         public decimal TickerMaximo()
         {
             var rep = _serviceProvider.GetService<IPedidoRepository>();
             return rep.TicketMaximo();
+        }
+
+
+        [HttpGet("por-cliente")]
+        public dynamic PedidosClientes()
+        {
+            var rep = _serviceProvider.GetService<IPedidoRepository>();
+            return rep.PedidosClientes();
         }
     }
 }
