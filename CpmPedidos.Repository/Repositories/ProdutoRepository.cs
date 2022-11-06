@@ -1,8 +1,6 @@
 using CpmPedidos.Domain;
 using CpmPedidos.Interface;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-using System.Runtime.Intrinsics.Arm;
 
 namespace CpmPedidos.Repository.Repositories
 {
