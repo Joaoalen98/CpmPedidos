@@ -1,42 +1,61 @@
 using CpmPedidos.Domain;
 using CpmPedidos.Interface;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Runtime.Intrinsics.Arm;
 
 namespace CpmPedidos.Repository.Repositories
 {
     public class ProdutoRepository : BaseRepository, IProdutoRepository
     {
+        private void OrdernarPorNome(IQueryable<Produto> query, string ordem)
+        {
+            if (string.IsNullOrEmpty(ordem) || ordem.ToUpper() == "ASC")
+            {
+                query = query.OrderBy(x => x.Nome);
+            }
+            else
+            {
+                query = query.OrderByDescending(x => x.Nome);
+            }
+        }
         public ProdutoRepository(ApplicationDbContext dbContext) : base(dbContext)
         { }
 
-        public dynamic Get()
+        public dynamic Get(string ordem)
         {
-            return _dbContext.Produtos
+            var queryProduto = _dbContext.Produtos
                 .Include(x => x.Categoria)
-                .Where(x => x.Ativo)
-                .Select(x => new
+                .Where(x => x.Ativo);
+                
+            OrdernarPorNome(queryProduto, ordem);
+
+            var queryRetorno = queryProduto.Select(x => new
+            {
+                x.Nome,
+                x.Preco,
+                Categoria = x.Categoria.Nome,
+                Imagens = x.Imagens.Select(x => new
                 {
+                    x.Id,
                     x.Nome,
-                    x.Preco,
-                    Categoria = x.Categoria.Nome,
-                    Imagens = x.Imagens.Select(x => new
-                    {
-                        x.Id,
-                        x.Nome,
-                        x.NomeArquivo,
-                    })
+                    x.NomeArquivo,
                 })
-                .OrderBy(x => x.Nome)
-                .ToList();
+            });
+
+            return queryRetorno.ToList();
         }
 
-        public dynamic GetSearch(string text, int pagina)
+        public dynamic GetSearch(string text, int pagina, string ordem)
         {
-            var produtos = _dbContext.Produtos
+            var queryProduto = _dbContext.Produtos
                 .Include(x => x.Categoria)
                 .Where(x => x.Ativo && x.Nome.ToUpper().Contains(text.ToUpper())
-                || x.Descricao.ToUpper().Contains(text.ToUpper()))
-                .Skip(TamanhoPagina * (pagina - 1))
+                || x.Descricao.ToUpper().Contains(text.ToUpper()));
+
+            OrdernarPorNome(queryProduto, ordem);
+
+            var queryRetorno = queryProduto.Skip(TamanhoPagina * (pagina - 1))
                 .Take(TamanhoPagina)
                 .Select(x => new
                 {
@@ -49,8 +68,10 @@ namespace CpmPedidos.Repository.Repositories
                         x.Nome,
                         x.NomeArquivo,
                     })
-                })
-                .ToList();
+                });
+
+            var produtos = queryRetorno.ToList();
+
 
             var quantidadeProdutos = _dbContext.Produtos.Where(x => x.Ativo && x.Nome.ToUpper().Contains(text.ToUpper())
                 || x.Descricao.ToUpper().Contains(text.ToUpper()))

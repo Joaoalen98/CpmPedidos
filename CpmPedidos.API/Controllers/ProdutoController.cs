@@ -13,17 +13,17 @@ namespace CpmPedidos.API.Controllers
 
 
         [HttpGet]
-        public dynamic Get()
+        public dynamic Get([FromQuery] string ordem = "")
         {
             var rep = _serviceProvider.GetService<IProdutoRepository>();
-            return rep.Get();
+            return rep.Get(ordem);
         }
 
         [HttpGet("search/{text}/{pagina}")]
-        public dynamic GetSearch(string text, int pagina = 1)
+        public dynamic GetSearch(string text, int pagina = 1, [FromQuery] string ordem = "")
         {
             var rep = _serviceProvider.GetService<IProdutoRepository>();
-            return rep.GetSearch(text, pagina);
+            return rep.GetSearch(text, pagina, ordem);
         }
 
         [HttpGet("{id}")]
