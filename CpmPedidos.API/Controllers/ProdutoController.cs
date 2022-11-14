@@ -13,7 +13,7 @@ namespace CpmPedidos.API.Controllers
 
 
         [HttpGet]
-        public dynamic Get([FromQuery] string ordem = "")
+        public dynamic Get([FromQuery] string? ordem = "")
         {
             var rep = _serviceProvider.GetService<IProdutoRepository>();
             return rep.Get(ordem);

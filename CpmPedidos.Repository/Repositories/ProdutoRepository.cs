@@ -2,7 +2,7 @@ using CpmPedidos.Domain;
 using CpmPedidos.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace CpmPedidos.Repository.Repositories
+namespace CpmPedidos.Repository
 {
     public class ProdutoRepository : BaseRepository, IProdutoRepository
     {

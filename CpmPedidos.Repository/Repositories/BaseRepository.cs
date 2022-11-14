@@ -1,4 +1,4 @@
-namespace CpmPedidos.Repository.Repositories
+namespace CpmPedidos.Repository
 {
     public class BaseRepository
     {

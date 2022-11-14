@@ -1,5 +1,5 @@
 ﻿using CpmPedidos.Interface;
-using CpmPedidos.Repository.Repositories;
+using CpmPedidos.Repository;
 
 namespace CpmPedidos.API
 {
@@ -14,6 +14,7 @@ namespace CpmPedidos.API
         {
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IPedidoRepository, PedidoReposiroty>();
+            services.AddScoped<ICidadeRepository, CidadeRepository>();
         }
     }
 }
