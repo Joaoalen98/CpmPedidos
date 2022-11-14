@@ -17,7 +17,7 @@ namespace CpmPedidos.Repository
             var connectionString = configuration.GetConnectionString("App");
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            builder.UseNpgsql(connectionString);
+            builder.UseSqlServer(connectionString);
 
             return new ApplicationDbContext(builder.Options);
         }

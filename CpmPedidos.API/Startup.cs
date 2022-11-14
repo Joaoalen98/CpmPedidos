@@ -9,7 +9,7 @@ namespace CpmPedidos.API
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public DbConnection DbConnection => new NpgsqlConnection(Configuration.GetConnectionString("App"));
+        public DbConnection DbConnection => new SqlConnection(Configuration.GetConnectionString("App"));
 
         public Startup(IConfiguration configuration)
         {
@@ -27,7 +27,7 @@ namespace CpmPedidos.API
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseNpgsql(
+                options.UseSqlServer(
                     DbConnection,
                     assembly => assembly.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
                 );
