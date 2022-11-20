@@ -6,5 +6,7 @@ namespace CpmPedidos.Interface
     {
         dynamic Get();
         int Criar(CidadeDTO model);
+        int Alterar(CidadeDTO model);
+        bool Excluir(int id);
     }
 }

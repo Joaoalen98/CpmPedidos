@@ -44,12 +44,79 @@ namespace CpmPedidos.Repository
                 _dbContext.Cidades.Add(entity);
                 _dbContext.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }
 
             return entity.Id;
+        }
+
+        public int Alterar(CidadeDTO model)
+        {
+            if (model.Id <= 0)
+            {
+                return 0;
+            }
+
+            var nomeDuplicado = _dbContext.Cidades
+                .Any(x =>
+                    x.Ativo
+                    && x.Nome.ToUpper() == model.Nome.ToUpper());
+
+            if (nomeDuplicado)
+            {
+                return 0;
+            }
+
+            var entity = _dbContext.Cidades.Find(model.Id);
+
+            if (entity == null)
+            {
+                return 0;
+            }
+
+            entity.Nome = model.Nome;
+            entity.Uf = model.Uf;
+            entity.Ativo = model.Ativo;
+
+            try
+            {
+                _dbContext.Cidades.Update(entity);
+                _dbContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+
+            return entity.Id;
+        }
+
+        public bool Excluir(int id)
+        {
+            if (id <= 0)
+            {
+                return false;
+            }
+
+            var entity = _dbContext.Cidades.Find(id);
+
+            if (entity == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                _dbContext.Cidades.Remove(entity);
+                _dbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
