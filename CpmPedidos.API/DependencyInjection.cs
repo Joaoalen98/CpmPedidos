@@ -13,7 +13,7 @@ namespace CpmPedidos.API
         public static void RepositoryDependecies(IServiceCollection services)
         {
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            services.AddScoped<IPedidoRepository, PedidoReposiroty>();
+            services.AddScoped<IPedidoRepository, PedidoRepository>();
             services.AddScoped<ICidadeRepository, CidadeRepository>();
         }
     }
