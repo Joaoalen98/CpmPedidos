@@ -25,7 +25,7 @@ namespace CpmPedidos.Repository
             var queryProduto = _dbContext.Produtos
                 .Include(x => x.Categoria)
                 .Where(x => x.Ativo);
-                
+
             OrdernarPorNome(queryProduto, ordem);
 
             var queryRetorno = queryProduto.Select(x => new
