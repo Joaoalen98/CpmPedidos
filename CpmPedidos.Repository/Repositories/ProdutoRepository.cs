@@ -6,7 +6,7 @@ namespace CpmPedidos.Repository
 {
     public class ProdutoRepository : BaseRepository, IProdutoRepository
     {
-        private void OrdernarPorNome(IQueryable<Produto> query, string ordem)
+        private void OrdernarPorNome(ref IQueryable<Produto> query, string ordem)
         {
             if (string.IsNullOrEmpty(ordem) || ordem.ToUpper() == "ASC")
             {
@@ -17,6 +17,7 @@ namespace CpmPedidos.Repository
                 query = query.OrderByDescending(x => x.Nome);
             }
         }
+
         public ProdutoRepository(ApplicationDbContext dbContext) : base(dbContext)
         { }
 
@@ -26,7 +27,7 @@ namespace CpmPedidos.Repository
                 .Include(x => x.Categoria)
                 .Where(x => x.Ativo);
 
-            OrdernarPorNome(queryProduto, ordem);
+            OrdernarPorNome(ref queryProduto, ordem);
 
             var queryRetorno = queryProduto.Select(x => new
             {
@@ -51,7 +52,7 @@ namespace CpmPedidos.Repository
                 .Where(x => x.Ativo && x.Nome.ToUpper().Contains(text.ToUpper())
                 || x.Descricao.ToUpper().Contains(text.ToUpper()));
 
-            OrdernarPorNome(queryProduto, ordem);
+            OrdernarPorNome(ref queryProduto, ordem);
 
             var queryRetorno = queryProduto.Skip(TamanhoPagina * (pagina - 1))
                 .Take(TamanhoPagina)
