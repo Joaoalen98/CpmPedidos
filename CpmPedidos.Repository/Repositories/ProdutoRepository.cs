@@ -76,7 +76,7 @@ namespace CpmPedidos.Repository
                 || x.Descricao.ToUpper().Contains(text.ToUpper()))
                 .Count();
 
-            var quantidadePaginas = quantidadeProdutos / TamanhoPagina;
+            var quantidadePaginas = (int)Math.Ceiling((decimal)quantidadeProdutos / TamanhoPagina);
 
             if (quantidadePaginas < 1)
             {
